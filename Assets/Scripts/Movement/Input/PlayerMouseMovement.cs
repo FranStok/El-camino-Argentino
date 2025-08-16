@@ -23,6 +23,7 @@ public class PlayerMouseMovement : MonoBehaviour
     {
         Vector2 lookValue = lookAction.ReadValue<Vector2>() * Time.deltaTime * lookSpeed;
         RotatePlayer(lookValue);
+
     }
 
     void RotatePlayer(Vector2 rotationVector)
@@ -34,4 +35,5 @@ public class PlayerMouseMovement : MonoBehaviour
         transform.Rotate(Vector3.up * rotationVector.x);
         cameraHolder.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
     }
+
 }

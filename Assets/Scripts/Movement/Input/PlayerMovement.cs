@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     [SerializeField] float moveSpeed = 2;
-    [SerializeField] float jumpHeight = 3f;
+    [SerializeField] float jumpHeight = 1.2f;
 
     InputAction moveAction;
     InputAction jumpAction;
@@ -33,18 +33,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (characterController.isGrounded)
         {
-            verticalSpeed = (jumpAction.triggered) ? Mathf.Sqrt(Physics.gravity.y * jumpHeight * -2) : -1;
-            Debug.Log("SALTO"); 
-            Debug.Log(verticalSpeed); 
-            return;
+            verticalSpeed = (jumpAction.WasPressedThisFrame()) ? Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y) : -1;
+
         }
-            Debug.Log("NO SALTO"); 
         verticalSpeed += Physics.gravity.y * Time.deltaTime; //La gravedad es negativa
     }
 
     void MovePlayer(Vector2 moveVector)
     {
-        Vector3 move = transform.forward * moveVector.y + transform.right * moveVector.x + Vector3.up * verticalSpeed;
+        Vector3 move = transform.forward * moveVector.y + transform.right * moveVector.x + Vector3.up * verticalSpeed*Time.deltaTime;
         characterController.Move(move);
     }
 
