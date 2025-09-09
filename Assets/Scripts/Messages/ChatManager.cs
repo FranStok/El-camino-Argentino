@@ -1,46 +1,45 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ChatManager : MonoBehaviour
 {
+    [SerializeField] [CanBeNull] private GameObject messagesGameObject;
+    [CanBeNull] private MessagesLoader _messagesLoader;
+
     public List<Message> messages = new List<Message>();
     public static ChatManager Instance { get; private set; }
 
     private void Awake()
     {
+
         if (Instance != null && Instance != this)
         {
-
             Destroy(gameObject); // Ensures only one instance exists
         }
         else
         {
-
             Instance = this;
             DontDestroyOnLoad(gameObject); // Persists across scene loads
         }
-    }
 
-    private void Start()
-    {
-        messages.AddRange(new[]
-        {
-            new Message(Sender.Player, "hola"),
-            new Message(Sender.Bot, "¿cómo estás?"),
-            new Message(Sender.Player, "Bien"),
-            new Message(Sender.Bot, "BUENISIMO"),
-            new Message(Sender.Player, "¿cómo estás?"),
-        });
+        Instance._messagesLoader = messagesGameObject?.GetComponent<MessagesLoader>();
 
     }
     public void SendMessagePlayer(string message)
     {
-        messages.Add(new Message(Sender.Player, message));
+        Message newMessage = new Message(Sender.Player, message);
+        messages.Add(newMessage);
+        if (SceneManager.GetActiveScene().name == "Chat" && _messagesLoader != null) _messagesLoader.LoadMessages(new List<Message> { newMessage });
+
     }
 
     public void ReceiveMessageBot(string message)
     {
-        messages.Add(new Message(Sender.Bot, message));
+        Message newMessage = new Message(Sender.Bot, message);
+        messages.Add(newMessage);
+        if (SceneManager.GetActiveScene().name == "Chat" && _messagesLoader != null) _messagesLoader.LoadMessages(new List<Message> { newMessage });
     }
 }
 
