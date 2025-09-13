@@ -6,6 +6,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class Talk : MonoBehaviour
 {
@@ -16,16 +17,20 @@ public class Talk : MonoBehaviour
     private AudioClip _recordedClip;
     private string _micName;
     private InputAction _openMicAction;
-
+    private Button _button;
 
 
     private bool _isFetching = false;
     private bool _isRecording = false;
+
+    private bool _recordingFromButton;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
 
     private void Awake()
     {
+         _button=GetComponent<Button>(); 
+        
         _chatManager=GameObject.FindWithTag("ChatManager").GetComponent<ChatManager>();
     }
 
@@ -45,32 +50,51 @@ public class Talk : MonoBehaviour
             Debug.LogError("No se detectaron micr�fonos!");
         }
     }
+    
+    private void Update()
+    {
+        if (_isRecording && !_recordingFromButton && _openMicAction.ReadValue<float>() <= 0)
+        {
+            StopRecording();
+            return;
+        }
+        if (!_isFetching && !_isRecording && _openMicAction.ReadValue<float>() > 0)
+        {
+            StartRecording();
+            _recordingFromButton = false;
+        }
+    }
 
-    public void SendMessage()
+    public void SendChatMessage()
     {
         if (_isFetching) return;
         _isFetching = true;
 
         StartCoroutine(ApiClient.Get(AudioToStringEndpoint, (respuesta) =>
         {
-
             _chatManager.SendMessagePlayer(JsonUtility.FromJson<AudioToTextResponse>(respuesta).response);
             _isFetching = false;
         }));
     }
 
-    private void Update()
+    public void StartRecordingFromButton()
     {
-        if (_openMicAction.ReadValue<float>() <= 0 && _isRecording)
-        {
-            StopRecording();
-            return;
-        }
-        if (!_isRecording && _openMicAction.ReadValue<float>() > 0)
-        {
-            StartRecording();
-            return;
-        }
+        if(_isRecording || _isFetching) return;
+        _button.onClick.RemoveAllListeners();
+        _button.onClick.AddListener(StopRecordingFromButton);
+        GetComponent<TextUIController>().SetText("Detener");
+        _recordingFromButton = true;
+        StartRecording();
+    }
+
+    public void StopRecordingFromButton()
+    {
+        if (!_isRecording) return;
+        _button.onClick.RemoveAllListeners();
+        _button.onClick.AddListener(StartRecordingFromButton);
+        GetComponent<TextUIController>().SetText("Hablar");
+        _recordingFromButton = false;
+        StopRecording();
     }
 
 
@@ -79,7 +103,6 @@ public class Talk : MonoBehaviour
         _isRecording = true;
         // Pongo 600 segundos (10 minutos) como l�mite m�ximo
         _recordedClip = Microphone.Start(_micName, false, 600, 44100);
-        Debug.Log("Grabando...");
     }
 
     private void StopRecording()
@@ -87,8 +110,8 @@ public class Talk : MonoBehaviour
         _isRecording = false;
         int position = Microphone.GetPosition(_micName); // posici�n real hasta donde grab�
         Microphone.End(_micName);
-        Debug.Log("Grabaci�n detenida en: " + position + " samples");
-        SendMessage();
+        
+        SendChatMessage();
         _audioSource.clip = _recordedClip;
         _audioSource.Play();
 

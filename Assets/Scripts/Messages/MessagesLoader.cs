@@ -39,7 +39,7 @@ public class MessagesLoader : MonoBehaviour
             ? TextAnchor.UpperRight
             : TextAnchor.UpperLeft;
 
-        newMessageUI.GetComponent<SetMessegeToUIText>().SetText(mensaje.text);
+        newMessageUI.GetComponent<TextUIController>().SetText(mensaje.text);
 
     }
 }

@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class SetMessegeToUIText : MonoBehaviour
+public class TextUIController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI textoUI;
 
