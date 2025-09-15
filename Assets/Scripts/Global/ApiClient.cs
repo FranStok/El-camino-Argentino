@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Text;
@@ -7,36 +10,58 @@ public static class ApiClient
 {
     private static readonly string baseUrl = "http://127.0.0.1:8000/";
 
-    public static IEnumerator Get(string endpoint, System.Action<string> callback)
+    public static IEnumerator Get(string endpoint,  System.Action<string> callback,Dictionary<string,string> parameters=null)
     {
-        using (UnityWebRequest request = UnityWebRequest.Get(baseUrl + endpoint))
-        {
-            yield return request.SendWebRequest();
+        String requestUrl = baseUrl + endpoint;
 
-            if (request.result != UnityWebRequest.Result.Success)
-                Debug.LogError("Error GET: " + request.error);
-            else
-                callback?.Invoke(request.downloadHandler.text);
+        if (parameters != null)
+        {
+            List<string> parametersString = new List<string>();
+            foreach (var (key, value) in parameters)
+            {
+                parametersString.Add(key + "=" + value);
+            }
+
+            requestUrl = requestUrl + "?" + string.Join("&",parametersString);
         }
+        using UnityWebRequest request = UnityWebRequest.Get(requestUrl);
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+            Debug.LogError("Error GET: " + request.error);
+        else
+            callback?.Invoke(request.downloadHandler.text);
     }
 
-    public static IEnumerator Post(string endpoint, string json, System.Action<string> callback)
+    public static IEnumerator Post(string endpoint, System.Action<string> callback,Dictionary<string,string> parameters=null,Byte[] body=null)
     {
-        byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
-
-        using (UnityWebRequest request = new UnityWebRequest(baseUrl + endpoint, "POST"))
+        String requestUrl = baseUrl + endpoint;
+        
+        if (parameters != null)
         {
-            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-            request.downloadHandler = new DownloadHandlerBuffer();
-            request.SetRequestHeader("Content-Type", "application/json");
+            List<string> parametersString = new List<string>();
+            foreach (var (key, value) in parameters)
+            {
+                parametersString.Add(key + "=" + value);
+            }
 
-            yield return request.SendWebRequest();
+            requestUrl = requestUrl + "?" + string.Join("&",parametersString);
 
-            if (request.result != UnityWebRequest.Result.Success)
-                Debug.LogError("Error POST: " + request.error);
-            else
-                callback?.Invoke(request.downloadHandler.text);
         }
+
+        
+
+        using UnityWebRequest request = new UnityWebRequest(requestUrl, "POST");
+        if (body != null) request.uploadHandler = new UploadHandlerRaw(body);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+            Debug.LogError("Error POST: " + request.error);
+        else
+            callback?.Invoke(request.downloadHandler.text);
     }
 }
 

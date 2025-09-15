@@ -1,0 +1,3 @@
+Manejar el errores de las peticiones
+
+Fijarse de hacer el initScroll correctamente para mover el scroll cuando llega un nuevo mensaje

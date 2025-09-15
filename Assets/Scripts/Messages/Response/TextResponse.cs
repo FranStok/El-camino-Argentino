@@ -1,6 +1,6 @@
 namespace Messages.Response
 {
-    public class AudioToTextResponse
+    public class TextResponse
     {
         public string response;
     }

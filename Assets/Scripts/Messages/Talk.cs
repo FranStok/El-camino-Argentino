@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Messages.Response;
+using Messages.Utils;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,9 +11,10 @@ using UnityEngine.UI;
 
 public class Talk : MonoBehaviour
 {
+    
     private const string AudioToStringEndpoint = "audioToText";
+    private const string ModelPromptEndpoint = "modelPrompt";
     private ChatManager _chatManager;
-    private AudioSource _audioSource;
     
     private AudioClip _recordedClip;
     private string _micName;
@@ -36,7 +38,6 @@ public class Talk : MonoBehaviour
 
     private void Start()
     {
-        _audioSource = GetComponent<AudioSource>();
 
         _openMicAction = InputSystem.actions.FindAction("Talk");
 
@@ -65,17 +66,6 @@ public class Talk : MonoBehaviour
         }
     }
 
-    public void SendChatMessage()
-    {
-        if (_isFetching) return;
-        _isFetching = true;
-
-        StartCoroutine(ApiClient.Get(AudioToStringEndpoint, (respuesta) =>
-        {
-            _chatManager.SendMessagePlayer(JsonUtility.FromJson<AudioToTextResponse>(respuesta).response);
-            _isFetching = false;
-        }));
-    }
 
     public void StartRecordingFromButton()
     {
@@ -102,19 +92,76 @@ public class Talk : MonoBehaviour
     {
         _isRecording = true;
         // Pongo 600 segundos (10 minutos) como l�mite m�ximo
-        _recordedClip = Microphone.Start(_micName, false, 600, 44100);
+        _recordedClip = Microphone.Start(_micName, false, 60, 44100);
     }
 
     private void StopRecording()
     {
         _isRecording = false;
-        int position = Microphone.GetPosition(_micName); // posici�n real hasta donde grab�
+        ClipAudio();
+        TranscribeAudio();
+
+        
+    }
+
+    private void ClipAudio()
+    {
+        //Capture the current clip data
+        var position = Microphone.GetPosition(_micName);
         Microphone.End(_micName);
         
-        SendChatMessage();
-        _audioSource.clip = _recordedClip;
-        _audioSource.Play();
+        float[] samples = new float[_recordedClip.samples * _recordedClip.channels];
+        _recordedClip.GetData(samples, 0);
+
+        //Create shortened array for the data that was used for recording
+        var clippedSamples = new float[position * _recordedClip.channels];
+
+        //Copy the used samples to a new array
+        for (int i = 0; i < clippedSamples.Length; i++)
+        {
+            clippedSamples[i] = samples[i];
+        }
 
 
+        AudioClip clippedClip = AudioClip.Create(
+            "Clipped",
+            position,
+            _recordedClip.channels,
+            _recordedClip.frequency,
+            false
+        );
+        clippedClip.SetData(clippedSamples, 0);
+        _recordedClip = clippedClip;
     }
+
+    private void TranscribeAudio()
+    {
+        if (_isFetching) return;
+
+        byte[] audioBytes = WavUtil.AudioClipToWAV(_recordedClip);
+        
+        _isFetching = true;
+
+        StartCoroutine(ApiClient.Post(AudioToStringEndpoint, (respuestaTranscriptaJson) =>
+        {
+            TextResponse transcribe = JsonUtility.FromJson<TextResponse>(respuestaTranscriptaJson);
+            _chatManager.SendMessagePlayer(transcribe.response);
+            GetComponent<ScrollController>().ResetScroll();
+            StartCoroutine(ApiClient.Get(ModelPromptEndpoint, (modelResponseJson) =>
+                    {
+                        TextResponse modelResponse = JsonUtility.FromJson<TextResponse>(modelResponseJson);
+
+                        _chatManager.ReceiveMessageBot(modelResponse.response);
+
+                        StartCoroutine(GetComponent<ScrollController>().ResetScroll());
+                        _isFetching = false;
+                    }, parameters: new Dictionary<string, string>
+                    {
+                        { "prompt", transcribe.response }
+                    }
+                )
+            );
+        },body:audioBytes));
+    }
+    
 }

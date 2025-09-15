@@ -24,14 +24,23 @@ public class ChatManager : MonoBehaviour
             DontDestroyOnLoad(gameObject); // Persists across scene loads
         }
 
-        Instance._messagesLoader = messagesGameObject?.GetComponent<MessagesLoader>();
+        if (messagesGameObject!=null)
+        {
+            Instance._messagesLoader = messagesGameObject?.GetComponent<MessagesLoader>();
+        }
+        else
+        {
+            Instance._messagesLoader = null;
+        }
 
     }
     public void SendMessagePlayer(string message)
     {
         Message newMessage = new Message(Sender.Player, message);
         messages.Add(newMessage);
-        if (SceneManager.GetActiveScene().name == "Chat" && _messagesLoader != null) _messagesLoader.LoadMessages(new List<Message> { newMessage });
+        Debug.Log(newMessage.text);
+        if (SceneManager.GetActiveScene().name == "Chat" && _messagesLoader != null)
+            _messagesLoader.LoadMessages(newMessage);
 
     }
 
@@ -39,7 +48,8 @@ public class ChatManager : MonoBehaviour
     {
         Message newMessage = new Message(Sender.Bot, message);
         messages.Add(newMessage);
-        if (SceneManager.GetActiveScene().name == "Chat" && _messagesLoader != null) _messagesLoader.LoadMessages(new List<Message> { newMessage });
+        if (SceneManager.GetActiveScene().name == "Chat" && _messagesLoader != null)
+            _messagesLoader.LoadMessages(newMessage);
     }
 }
 
