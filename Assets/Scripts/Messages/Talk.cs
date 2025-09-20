@@ -146,6 +146,7 @@ public class Talk : MonoBehaviour
         {
             TextResponse transcribe = JsonUtility.FromJson<TextResponse>(respuestaTranscriptaJson);
             _chatManager.SendMessagePlayer(transcribe.response);
+            Debug.Log(transcribe);
             GetComponent<ScrollController>().ResetScroll();
             StartCoroutine(ApiClient.Get(ModelPromptEndpoint, (modelResponseJson) =>
                     {
