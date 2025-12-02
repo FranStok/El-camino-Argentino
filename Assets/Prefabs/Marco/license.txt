@@ -1,0 +1,11 @@
+Model Information:
+* title:	Wooden Picture Frame
+* source:	https://sketchfab.com/3d-models/wooden-picture-frame-0cd5b9f09f2d47809e42277a1e65e3e4
+* author:	Valo (https://sketchfab.com/Valo__)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Wooden Picture Frame" (https://sketchfab.com/3d-models/wooden-picture-frame-0cd5b9f09f2d47809e42277a1e65e3e4) by Valo (https://sketchfab.com/Valo__) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

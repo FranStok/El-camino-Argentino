@@ -144,25 +144,51 @@ public class Talk : MonoBehaviour
 
         StartCoroutine(ApiClient.Post(AudioToStringEndpoint, (respuestaTranscriptaJson) =>
         {
-            TextResponse transcribe = JsonUtility.FromJson<TextResponse>(respuestaTranscriptaJson);
-            _chatManager.SendMessagePlayer(transcribe.response);
-            Debug.Log(transcribe);
-            GetComponent<ScrollController>().ResetScroll();
-            StartCoroutine(ApiClient.Get(ModelPromptEndpoint, (modelResponseJson) =>
-                    {
-                        TextResponse modelResponse = JsonUtility.FromJson<TextResponse>(modelResponseJson);
+            try
+            {
+                TextResponse transcribe = JsonUtility.FromJson<TextResponse>(respuestaTranscriptaJson);
+                _chatManager.SendMessagePlayer(transcribe.response);
+                GetComponent<ScrollController>().ResetScroll();
+                StartCoroutine(ApiClient.Get(ModelPromptEndpoint, (modelResponseJson) =>
+                        {
+                            try
+                            {
+                                TextResponse modelResponse = JsonUtility.FromJson<TextResponse>(modelResponseJson);
 
-                        _chatManager.ReceiveMessageBot(modelResponse.response);
+                                _chatManager.ReceiveMessageBot(modelResponse.response);
 
-                        StartCoroutine(GetComponent<ScrollController>().ResetScroll());
-                        _isFetching = false;
-                    }, parameters: new Dictionary<string, string>
-                    {
-                        { "prompt", transcribe.response }
-                    }
-                )
-            );
-        },body:audioBytes));
+                                StartCoroutine(GetComponent<ScrollController>().ResetScroll());
+                                _isFetching = false;
+                            }
+
+
+                            catch (Exception e)
+                            {
+                                _isFetching = false;
+                            }
+
+
+
+                        }, (error) =>
+                        {
+                            _isFetching = false;
+                        }, parameters: new Dictionary<string, string>
+                        {
+                            { "prompt", transcribe.response }
+                        }
+                    )
+                );
+
+            }
+            catch (Exception e)
+            {
+                _isFetching = false;
+
+            }
+        }, (error) =>
+        {
+            _isFetching = false;
+        }, body: audioBytes));
     }
     
 }

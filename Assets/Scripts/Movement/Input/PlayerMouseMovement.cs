@@ -15,12 +15,13 @@ public class PlayerMouseMovement : MonoBehaviour
     void Start()
     {
         lookAction = InputSystem.actions.FindAction("look");
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(OverlayManager.Instance.isOpen) return;
         Vector2 lookValue = lookAction.ReadValue<Vector2>() * Time.deltaTime * lookSpeed;
         RotatePlayer(lookValue);
 

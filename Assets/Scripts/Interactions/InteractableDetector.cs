@@ -31,8 +31,12 @@ public class InteractableDetector : MonoBehaviour
         if (Physics.Raycast(ray, out raycastHit, rayDistance, layerMask))
         {
             IInteractable interactable = raycastHit.collider.GetComponent<IInteractable>();
+            
+            
             interactionText.text = interactable.InteractMessage;
             if (interactAction.WasPressedThisFrame()) interactable.Interact();
+            
+            
             return;
         }
         interactionText.text = "";

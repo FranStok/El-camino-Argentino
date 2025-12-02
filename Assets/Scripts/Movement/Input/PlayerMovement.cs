@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
 
-    [SerializeField] float moveSpeed = 2;
+    [SerializeField] float moveSpeed = 7;
     [SerializeField] float jumpHeight = 1.2f;
 
     InputAction moveAction;

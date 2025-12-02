@@ -10,7 +10,7 @@ public static class ApiClient
 {
     private static readonly string baseUrl = "http://127.0.0.1:8000/";
 
-    public static IEnumerator Get(string endpoint,  System.Action<string> callback,Dictionary<string,string> parameters=null)
+    public static IEnumerator Get(string endpoint,  System.Action<string> callback, System.Action<string> errorCallBack,Dictionary<string,string> parameters=null)
     {
         String requestUrl = baseUrl + endpoint;
 
@@ -28,12 +28,12 @@ public static class ApiClient
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
-            Debug.LogError("Error GET: " + request.error);
+            errorCallBack.Invoke(request.error);
         else
             callback?.Invoke(request.downloadHandler.text);
     }
 
-    public static IEnumerator Post(string endpoint, System.Action<string> callback,Dictionary<string,string> parameters=null,Byte[] body=null)
+    public static IEnumerator Post(string endpoint, System.Action<string> callback, System.Action<string> errorCallBack,Dictionary<string,string> parameters=null,Byte[] body=null)
     {
         String requestUrl = baseUrl + endpoint;
         
@@ -59,7 +59,7 @@ public static class ApiClient
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
-            Debug.LogError("Error POST: " + request.error);
+            errorCallBack.Invoke(request.error);
         else
             callback?.Invoke(request.downloadHandler.text);
     }

@@ -1,5 +1,7 @@
-Manejar el errores de las peticiones
+Traer la informacion basica de los objetos.
 
-Fijarse de hacer el initScroll correctamente para mover el scroll cuando llega un nuevo mensaje
+Alimentar al bot con información del piano de Mariquita Sanchez.
 
-Utilizar doocker para organizar y mejorar (opcional por ahora)
+Agregar sonidos de caminar y saltar.
+
+Cambiar boton de salir de interaccion a "E"
