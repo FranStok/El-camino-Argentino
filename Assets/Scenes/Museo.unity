@@ -280,7 +280,6 @@ GameObject:
   - component: {fileID: 121253380}
   - component: {fileID: 121253379}
   - component: {fileID: 121253382}
-  - component: {fileID: 121253383}
   m_Layer: 5
   m_Name: Descripcion
   m_TagString: Untagged
@@ -339,7 +338,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 121253383}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ScrollDebug, Assembly-CSharp
         m_MethodName: OnScrollChanged
         m_Mode: 0
@@ -409,18 +408,6 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: 1
   m_LayoutPriority: 1
---- !u!114 &121253383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 121253377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39647767c55944e429bbe7b82e5cd502, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ScrollDebu
 --- !u!1 &159516728
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,7 +1109,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 16001864}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.44768238
+  m_Size: 0.78651774
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1740,7 +1727,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1383.75, y: 0}
+  m_SizeDelta: {x: 0, y: 619.77}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &474148131
 MonoBehaviour:
@@ -1925,7 +1912,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Esc para salir.
+  m_text: Esc o E para salir.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2799,7 +2786,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1036835264}
   - component: {fileID: 1036835266}
-  - component: {fileID: 1036835265}
+  - component: {fileID: 1036835267}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -2827,32 +2814,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1366, y: 0}
   m_Pivot: {x: 0.5, y: 1}
---- !u!114 &1036835265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1036835263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 1
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
 --- !u!114 &1036835266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2867,6 +2828,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &1036835267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036835263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.HorizontalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 16
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1001 &1040818008
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2960,8 +2947,80 @@ PrefabInstance:
       value: 1.05
       objectReference: {fileID: 0}
     - target: {fileID: 7518646014934977148, guid: aea6d951a2e7e3b4aab1834be5c77c98, type: 3}
+      propertyPath: nombre
+      value: "Piano de Mariquita S\xE1nchez"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518646014934977148, guid: aea6d951a2e7e3b4aab1834be5c77c98, type: 3}
       propertyPath: description
-      value: Chat
+      value: "El Piano de Mariquita S\xE1nchez: historia, simbolismo y legado cultural 
+        El llamado \u201CPiano de Mariquita S\xE1nchez\u201D ocupa un lugar destacado
+        dentro del patrimonio cultural argentino, no solo por ser un objeto musical
+        de gran valor hist\xF3rico, sino tambi\xE9n por su estrecha relaci\xF3n con
+        figuras centrales de la vida social y pol\xEDtica del R\xEDo de la Plata
+        durante las primeras d\xE9cadas del siglo XIX. Su importancia trasciende
+        lo material: es un s\xEDmbolo de los primeros pasos culturales de la naci\xF3n
+        y del rol que ciertas familias porte\xF1as tuvieron en la construcci\xF3n
+        de un espacio social donde conviv\xEDan pol\xEDtica, arte y vida intelectual. 
+        Mariquita S\xE1nchez, anfitriona de la vida cultural rioplatense  Mar\xEDa
+        de los Remedios de Azcu\xE9naga y de la Quintana, m\xE1s conocida como Mariquita
+        S\xE1nchez, naci\xF3 en 1786 y se convirti\xF3 r\xE1pidamente en una de las
+        figuras femeninas m\xE1s influyentes del Buenos Aires colonial y post-revolucionario.
+        Inteligente, instruida y con un fuerte car\xE1cter, Mariquita ocup\xF3 un
+        lugar central en la vida privada y social de la elite porte\xF1a. Su casa
+        funcion\xF3 como uno de los primeros salones literarios y musicales de la
+        regi\xF3n, un espacio donde se debat\xEDan temas pol\xEDticos, se compart\xEDan
+        ideas y se difund\xEDan las corrientes culturales de Europa.  En esas reuniones
+        participaban personajes como Manuel Belgrano, Bernardino Rivadavia, Vicente
+        L\xF3pez y Planes, Esteban Echeverr\xEDa y otros referentes de la \xE9poca.
+        Las tertulias de Mariquita eran un punto de encuentro de la Generaci\xF3n
+        del \u201937 y de una nueva intelectualidad que aspiraba a construir un pa\xEDs
+        con instituciones modernas.  El piano: un instrumento que se volvi\xF3 s\xEDmbolo 
+        El piano perteneci\xF3 a Mariquita y formaba parte del mobiliario de su residencia.
+        Se trataba de un piano-forte, instrumento muy popular entre las familias
+        ilustradas y acomodadas del per\xEDodo. Su presencia no solo era un s\xEDmbolo
+        de refinamiento cultural europeo, sino tambi\xE9n un signo de estatus y educaci\xF3n. 
+        Pero este piano en particular alcanz\xF3 fama hist\xF3rica por un episodio
+        fundamental: seg\xFAn la tradici\xF3n y m\xFAltiples testimonios del siglo
+        XIX, fue en ese piano donde se interpret\xF3 por primera vez el Himno Nacional
+        Argentino. La interpretaci\xF3n habr\xEDa tenido lugar en 1813, durante una
+        de las reuniones en la casa de Mariquita. El texto del Himno, escrito por
+        Vicente L\xF3pez y Planes, se acompa\xF1\xF3 con m\xFAsica compuesta por
+        Blas Parera.  Aunque los historiadores discuten si la versi\xF3n interpretada
+        fue exactamente la misma que conocemos hoy, hay consenso en que el instrumento
+        fue escenario de ese momento fundacional. Por ello, el piano se transform\xF3
+        en un objeto profundamente cargado de valor simb\xF3lico: representa el nacimiento
+        musical de la patria.  La cultura musical y el rol de las mujeres en el siglo
+        XIX  El hecho de que la primera interpretaci\xF3n del Himno haya ocurrido
+        en una casa privada, en presencia de figuras destacadas, es un recordatorio
+        del rol central que tuvieron las mujeres de la elite como difusoras de cultura.
+        Las tertulias de Mariquita fueron un punto de irradiaci\xF3n de ideas ilustradas
+        y de pr\xE1cticas musicales que, en ese tiempo, todav\xEDa no ten\xEDan instituciones
+        formales donde desarrollarse plenamente.  El piano tambi\xE9n refleja la
+        importancia que ten\xEDan los salones dom\xE9sticos como espacios de sociabilidad
+        en una \xE9poca donde Buenos Aires no contaba con teatros estables, conservatorios
+        o centros culturales en el sentido moderno. Las casas como la de Mariquita
+        funcionaban como verdaderos n\xFAcleos culturales.  Un objeto tangible con
+        un profundo valor patrimonial  Hoy, el Piano de Mariquita S\xE1nchez se conserva
+        como parte del patrimonio hist\xF3rico argentino. Ha pasado por manos privadas
+        y colecciones oficiales, y se lo exhibe como pieza relevante del per\xEDodo
+        revolucionario. Su valor no radica \xFAnicamente en su antig\xFCedad o en
+        su est\xE9tica, sino en su capacidad para conectar a generaciones actuales
+        con un momento clave de la vida social rioplatense.  Acercarse al piano es,
+        en cierto sentido, acercarse a la intimidad de una \xE9poca: un tiempo de
+        discusiones pol\xEDticas intensas, de familias influyentes que buscaban asumir
+        un rol protag\xF3nico en el destino del pa\xEDs, y de mujeres como Mariquita
+        que, desde el \xE1mbito privado, ejercieron una poderosa influencia cultural. 
+        El legado  Hoy, el piano es uno de los objetos m\xE1s emblem\xE1ticos del
+        patrimonio nacional argentino. Representa:  La primera interpretaci\xF3n
+        del Himno Nacional, un hito profundamente simb\xF3lico.  La vida social e
+        intelectual del Buenos Aires revolucionario.  El rol de las mujeres en la
+        construcci\xF3n cultural de la joven naci\xF3n.  El tr\xE1nsito hacia una
+        identidad musical propia, en una \xE9poca de fuerte influencia europea. 
+        Para los argentinos, el piano no es simplemente un instrumento antiguo: es
+        una ventana a un pasado que mezcla m\xFAsica, pol\xEDtica, sociedad y naci\xF3n.
+        En torno a \xE9l se condensan relatos que permiten comprender mejor c\xF3mo
+        se gest\xF3 la vida cultural del R\xEDo de la Plata y c\xF3mo se construy\xF3
+        la memoria hist\xF3rica del pa\xEDs."
       objectReference: {fileID: 0}
     - target: {fileID: 8990333320364256179, guid: aea6d951a2e7e3b4aab1834be5c77c98, type: 3}
       propertyPath: m_LocalScale.y
@@ -4156,18 +4215,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7518646014934977148, guid: aea6d951a2e7e3b4aab1834be5c77c98, type: 3}
       propertyPath: nombre
-      value: Titulo
+      value: "El Sable de Jos\xE9 de San Mart\xEDn"
       objectReference: {fileID: 0}
     - target: {fileID: 7518646014934977148, guid: aea6d951a2e7e3b4aab1834be5c77c98, type: 3}
       propertyPath: description
-      value: New TextaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaNew
-        TextaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaNew TextaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaNew
-        TextaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaNew TextaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaNew
-        TextaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaNew TextaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaNew
-        TextaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaNew TextaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaNew
-        TextaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaNew TextaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaNew
-        TextaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaNew TextaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaNew
-        TextaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaNew Textaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      value: "Ante usted se encuentra el sable corvo del General Jos\xE9 de San Mart\xEDn,
+        arma que se convirti\xF3 en s\xEDmbolo del liderazgo, la estrategia militar
+        y la determinaci\xF3n del Libertador. Este sable, de hoja curva al estilo
+        \xE1rabe, acompa\xF1\xF3 a San Mart\xEDn en su formaci\xF3n en Europa y en
+        cada una de las campa\xF1as decisivas por la independencia sudamericana.
+        Su dise\xF1o ligero y curvado permit\xEDa ataques r\xE1pidos y eficientes
+        desde la caballer\xEDa, algo que San Mart\xEDn valoraba profundamente. Con
+        los a\xF1os, el sable se transform\xF3 en una pieza cargada de significado
+        patri\xF3tico, heredada a los granaderos como emblema de disciplina, valor
+        y honor.  M\xE1s que un arma, este sable representa una forma de entender
+        la guerra y la libertad. San Mart\xEDn lo consideraba un compa\xF1ero inseparable,
+        y al legarlo al Regimiento de Granaderos a Caballo expres\xF3 su deseo de
+        que sirviera como recordatorio de los ideales que guiaron su vida: la b\xFAsqueda
+        incansable de independencia, la austeridad personal y el servicio a los pueblos
+        americanos. Hoy es un objeto que nos conecta directamente con el esp\xEDritu
+        del hombre que so\xF1\xF3 y ejecut\xF3 una nueva naci\xF3n."
       objectReference: {fileID: 0}
     - target: {fileID: 9104645829938748730, guid: aea6d951a2e7e3b4aab1834be5c77c98, type: 3}
       propertyPath: m_Layer
@@ -4260,6 +4327,30 @@ PrefabInstance:
     - target: {fileID: 3848792030021498996, guid: aea6d951a2e7e3b4aab1834be5c77c98, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518646014934977148, guid: aea6d951a2e7e3b4aab1834be5c77c98, type: 3}
+      propertyPath: nombre
+      value: Acta de la Independencia de 1816
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518646014934977148, guid: aea6d951a2e7e3b4aab1834be5c77c98, type: 3}
+      propertyPath: description
+      value: "Aqu\xED se exhibe una reproducci\xF3n del hist\xF3rico Acta de la Independencia,
+        documento firmado el 9 de julio de 1816 en la ciudad de Tucum\xE1n. Este
+        texto sell\xF3 de manera oficial la ruptura del v\xEDnculo colonial con la
+        monarqu\xEDa espa\xF1ola y proclam\xF3 el nacimiento de una nueva entidad
+        pol\xEDtica soberana. Su redacci\xF3n, sobria pero contundente, expresa la
+        necesidad urgente de libertad ante las amenazas externas y las tensiones
+        internas que enfrentaba el territorio rioplatense. Fue el resultado de intensos
+        debates entre representantes de distintas provincias, que lograron acordar
+        un prop\xF3sito com\xFAn pese a sus diferencias.  Contemplar esta acta es
+        observar el momento en que el espacio pol\xEDtico del R\xEDo de la Plata
+        se transform\xF3 en un pa\xEDs independiente. El documento simboliza la maduraci\xF3n
+        de un proceso revolucionario iniciado en 1810 y refleja la voluntad colectiva
+        de construir un futuro propio. Cada firma estampada en \xE9l representa no
+        solo la decisi\xF3n de romper con el pasado colonial, sino tambi\xE9n la
+        responsabilidad de dar forma a una naci\xF3n en gestaci\xF3n. Es uno de los
+        textos fundacionales m\xE1s importantes de la historia argentina, y su presencia
+        en esta sala invita a reflexionar sobre la creaci\xF3n de la identidad nacional."
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4401,6 +4492,17 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
+--- !u!114 &1773202964 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6555576879471784794, guid: c9362e9451769bb41a4816eb3c701fb8, type: 3}
+  m_PrefabInstance: {fileID: 8581108063457249345}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1778561873
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4683,6 +4785,29 @@ PrefabInstance:
     - target: {fileID: 7496085397275877976, guid: aea6d951a2e7e3b4aab1834be5c77c98, type: 3}
       propertyPath: m_LocalPosition.z
       value: -2.132e-12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518646014934977148, guid: aea6d951a2e7e3b4aab1834be5c77c98, type: 3}
+      propertyPath: nombre
+      value: Traje de Soldado Granadero del Siglo XIX
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518646014934977148, guid: aea6d951a2e7e3b4aab1834be5c77c98, type: 3}
+      propertyPath: description
+      value: "Este ejemplar reproduce  el uniforme que vest\xEDan los Granaderos
+        a Caballo durante las primeras d\xE9cadas del siglo XIX, uno de los cuerpos
+        militares m\xE1s emblem\xE1ticos de la historia argentina. El dise\xF1o del
+        traje combinaba funcionalidad y presencia: la casaca azul con vivos rojos,
+        el alto morri\xF3n con penacho y las botas de montar daban al soldado una
+        imagen imponente, a la vez que permit\xEDan movilidad y protecci\xF3n en
+        combate. Cada elemento ten\xEDa un prop\xF3sito, desde el charol del casco
+        para resistir golpes hasta la banda cruzada que sosten\xEDa el equipo de
+        campa\xF1a.  El uniforme simboliza la disciplina y el esp\xEDritu de cuerpo
+        que San Mart\xEDn inculc\xF3 en sus tropas. Los granaderos no solo fueron
+        soldados, sino una \xE9lite militar basada en valores como el respeto, la
+        lealtad y la precisi\xF3n t\xE1ctica. Ver este traje es contemplar la identidad
+        de un regimiento que marc\xF3 un antes y un despu\xE9s en el ej\xE9rcito
+        rioplatense, y que se convirti\xF3 en referente de profesionalismo para todas
+        las fuerzas posteriores. Es un recordatorio visual de los hombres que acompa\xF1aron
+        al Libertador en los momentos m\xE1s dif\xEDciles de la lucha emancipadora."
       objectReference: {fileID: 0}
     - target: {fileID: 8990333320364256179, guid: aea6d951a2e7e3b4aab1834be5c77c98, type: 3}
       propertyPath: m_LocalScale.y
@@ -5021,6 +5146,7 @@ GameObject:
   - component: {fileID: 2146387332}
   - component: {fileID: 2146387331}
   - component: {fileID: 2146387334}
+  - component: {fileID: 2146387335}
   m_Layer: 5
   m_Name: Item Description Panel
   m_TagString: Untagged
@@ -5121,7 +5247,7 @@ MonoBehaviour:
     m_Top: 20
     m_Bottom: 20
   m_ChildAlignment: 0
-  m_Spacing: 100
+  m_Spacing: 20
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -5129,6 +5255,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &2146387335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146387329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf3d9d702bce5944ab2ccd12de99ae7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScrollController
+  rectTransform: {fileID: 121253379}
+  resetScrollOnStart: 0
 --- !u!1001 &4823864282843405090
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5397,6 +5537,10 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 420208752328202976, guid: c9362e9451769bb41a4816eb3c701fb8, type: 3}
+      propertyPath: playerInput
+      value: 
+      objectReference: {fileID: 1773202964}
     - target: {fileID: 590705573851098085, guid: c9362e9451769bb41a4816eb3c701fb8, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -5477,6 +5621,10 @@ PrefabInstance:
       propertyPath: interactionText
       value: 
       objectReference: {fileID: 1995567469}
+    - target: {fileID: 4971966674115242148, guid: c9362e9451769bb41a4816eb3c701fb8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5039901759923309570, guid: c9362e9451769bb41a4816eb3c701fb8, type: 3}
       propertyPath: m_Pivot.x
       value: 0

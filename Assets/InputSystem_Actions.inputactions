@@ -99,7 +99,7 @@
                 {
                     "name": "Exit Description",
                     "type": "Button",
-                    "id": "623f16e7-2853-449c-bb12-4084474298e0",
+                    "id": "e3d99bd8-ee1a-414d-87c5-48d8608e9b24",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -505,11 +505,22 @@
                 },
                 {
                     "name": "",
-                    "id": "d5a9f0c5-61a5-416c-9499-05cc91619a9a",
+                    "id": "27a0fe06-a089-4583-a5e6-c6882879b83e",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": "",
+                    "action": "Exit Description",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bd7ff81b-8dc2-4ea7-80f7-312e2155de95",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Exit Description",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -542,7 +553,7 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "15cef263-9014-4fd5-94d9-4e4a6234a6ef",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -606,6 +617,15 @@
                     "type": "PassThrough",
                     "id": "9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be",
                     "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Exit Ovarlay",
+                    "type": "Button",
+                    "id": "2fca0288-22cc-445f-8c09-5dcb35b747b4",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -1027,6 +1047,28 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "11a19db6-0bf2-48c8-887d-05f56f94cff3",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Exit Ovarlay",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "02970099-4ed3-4101-9741-ccd7fb5ae4cc",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Exit Ovarlay",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

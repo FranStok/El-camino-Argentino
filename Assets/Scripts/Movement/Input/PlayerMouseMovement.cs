@@ -21,7 +21,7 @@ public class PlayerMouseMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(OverlayManager.Instance.isOpen) return;
+        if(OverlayManager.Instance && OverlayManager.Instance.isOpen) return;
         Vector2 lookValue = lookAction.ReadValue<Vector2>() * Time.deltaTime * lookSpeed;
         RotatePlayer(lookValue);
 

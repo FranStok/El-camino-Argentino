@@ -1,7 +1,9 @@
 Traer la informacion basica de los objetos.
 
-Alimentar al bot con información del piano de Mariquita Sanchez.
-
 Agregar sonidos de caminar y saltar.
 
 Cambiar boton de salir de interaccion a "E"
+
+Sacar scroll debug
+
+Ocurrió un error: model requires more system memory (4.9 GiB) than is available (4.9 GiB) (status code: 500)

@@ -98,9 +98,9 @@ public class Talk : MonoBehaviour
     private void StopRecording()
     {
         _isRecording = false;
+        GetComponent<TextUIController>().SetText("Procesando");
         ClipAudio();
         TranscribeAudio();
-
         
     }
 
@@ -134,6 +134,11 @@ public class Talk : MonoBehaviour
         _recordedClip = clippedClip;
     }
 
+    private void onFinishProcesing()
+    {
+        GetComponent<TextUIController>().SetText("Hablar");
+        _isFetching = false;
+    }
     private void TranscribeAudio()
     {
         if (_isFetching) return;
@@ -158,20 +163,26 @@ public class Talk : MonoBehaviour
                                 _chatManager.ReceiveMessageBot(modelResponse.response);
 
                                 StartCoroutine(GetComponent<ScrollController>().ResetScroll());
-                                _isFetching = false;
+                                GetComponent<TextUIController>().SetText("Hablar");
+                                
+                                onFinishProcesing();
                             }
 
 
                             catch (Exception e)
                             {
-                                _isFetching = false;
+                                onFinishProcesing();
+                                _chatManager.ReceiveMessageBot("Ocurrió un error al procesar el mensaje.");
+
                             }
 
 
 
                         }, (error) =>
                         {
-                            _isFetching = false;
+                            onFinishProcesing();
+                            _chatManager.ReceiveMessageBot("Ocurrió un error al procesar el mensaje.");
+
                         }, parameters: new Dictionary<string, string>
                         {
                             { "prompt", transcribe.response }

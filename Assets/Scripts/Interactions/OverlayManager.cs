@@ -1,11 +1,14 @@
 using System;
+using System.Collections;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class OverlayManager : MonoBehaviour
 {
-    public static OverlayManager Instance { get; private set; }
+    [CanBeNull] public static OverlayManager Instance { get; private set; }
 
     private string overlayTextDescription;
     private string overlayTextTitle;
@@ -37,7 +40,7 @@ public class OverlayManager : MonoBehaviour
 
     private void Update()
     {
-        if(exitAction.WasPressedThisFrame() && isOpen) hideOverlay();
+        if(exitAction.WasPressedThisFrame() && isOpen) StartCoroutine(hideOverlay());
     }
 
     public void showOverlay(string titulo,string descripcion)
@@ -46,12 +49,16 @@ public class OverlayManager : MonoBehaviour
         Cursor.visible = true;
         textoTituloUI.text = titulo;
         textoDescripcionUI.text = descripcion;
-        isOpen = true;
         gameObject.SetActive(true);
+        isOpen = true;
     }
 
-    public void hideOverlay()
+    public IEnumerator hideOverlay()
     {
+        yield return StartCoroutine(
+            gameObject.GetComponent<ScrollController>().ResetScroll(1,1)
+        );
+        
         //Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         gameObject.SetActive(false);
