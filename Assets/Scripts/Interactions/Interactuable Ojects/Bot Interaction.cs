@@ -1,7 +1,5 @@
 using System.Collections;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class BotInteraction : MonoBehaviour, IInteractable
