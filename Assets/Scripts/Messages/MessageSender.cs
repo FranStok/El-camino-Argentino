@@ -1,15 +1,16 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Messages.Response;
 using Messages.Utils;
 using NUnit.Framework;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class Talk : MonoBehaviour
+public class MessageSender : MonoBehaviour
 {
     
     private const string AudioToStringEndpoint = "audioToText";
@@ -20,7 +21,12 @@ public class Talk : MonoBehaviour
     private string _micName;
     private InputAction _openMicAction;
     private Button _button;
+    [SerializeField] private TMP_InputField  inputField;
 
+    public bool isProcessing
+    {
+        get { return _isFetching || _isRecording;}
+    }
 
     private bool _isFetching = false;
     private bool _isRecording = false;
@@ -92,7 +98,7 @@ public class Talk : MonoBehaviour
     {
         _isRecording = true;
         // Pongo 600 segundos (10 minutos) como l�mite m�ximo
-        _recordedClip = Microphone.Start(_micName, false, 60, 44100);
+        _recordedClip = Microphone.Start(_micName, false, 60, 32000);
     }
 
     private void StopRecording()
@@ -152,54 +158,87 @@ public class Talk : MonoBehaviour
             try
             {
                 TextResponse transcribe = JsonUtility.FromJson<TextResponse>(respuestaTranscriptaJson);
-                _chatManager.SendMessagePlayer(transcribe.response);
-                GetComponent<ScrollController>().ResetScroll();
-                StartCoroutine(ApiClient.Get(ModelPromptEndpoint, (modelResponseJson) =>
-                        {
-                            try
-                            {
-                                TextResponse modelResponse = JsonUtility.FromJson<TextResponse>(modelResponseJson);
 
-                                _chatManager.ReceiveMessageBot(modelResponse.response);
-
-                                StartCoroutine(GetComponent<ScrollController>().ResetScroll());
-                                GetComponent<TextUIController>().SetText("Hablar");
-                                
-                                onFinishProcesing();
-                            }
-
-
-                            catch (Exception e)
-                            {
-                                onFinishProcesing();
-                                _chatManager.ReceiveMessageBot("Ocurrió un error al procesar el mensaje.");
-
-                            }
-
-
-
-                        }, (error) =>
-                        {
-                            onFinishProcesing();
-                            _chatManager.ReceiveMessageBot("Ocurrió un error al procesar el mensaje.");
-
-                        }, parameters: new Dictionary<string, string>
-                        {
-                            { "prompt", transcribe.response }
-                        }
-                    )
-                );
+                if (!string.IsNullOrWhiteSpace(transcribe.Response) && transcribe.Success)
+                {
+                    _chatManager.SendMessagePlayer(transcribe.Response);
+                    GetComponent<ScrollController>().ResetScroll();
+                    ModelFetch(transcribe.Response);
+                }else
+                {
+                
+                    onFinishProcesing();
+                    if(!transcribe.Success) _chatManager.SendMessagePlayer("Ocurrió un error al procesar el audio. Intente de nuevo.");
+                }
 
             }
             catch (Exception e)
             {
-                _isFetching = false;
+                onFinishProcesing();
 
             }
         }, (error) =>
         {
-            _isFetching = false;
+            onFinishProcesing();
         }, body: audioBytes));
+    }
+    
+    void  ModelFetch(string text)
+    {
+        _isFetching = true;
+        StartCoroutine(ApiClient.Get(ModelPromptEndpoint, (modelResponseJson) =>
+                {
+                    try
+                    {
+                        TextResponse modelResponse = JsonUtility.FromJson<TextResponse>(modelResponseJson);
+
+                        _chatManager.ReceiveMessageBot(modelResponse.Response);
+
+                        StartCoroutine(GetComponent<ScrollController>().ResetScroll());
+                        GetComponent<TextUIController>().SetText("Hablar");
+
+                        onFinishProcesing();
+                    }
+
+
+                    catch (Exception e)
+                    {
+                        onFinishProcesing();
+                        _chatManager.ReceiveMessageBot("Ocurrió un error al procesar el mensaje.");
+
+                    }
+
+
+
+                }, (error) =>
+                {
+                    onFinishProcesing();
+                    _chatManager.ReceiveMessageBot("Ocurrió un error al procesar el mensaje.");
+
+                }, parameters: new Dictionary<string, string>
+                {
+                    { "prompt", text }
+                }
+            )
+        );
+    }
+    public void OnEndEditingInput(string value)
+    {
+        // Si el metodo se invoca desde el boton "enviar" entonces el value viene vacio.
+        // Si se invoca apretando enter en el inputField, viene con valor.
+        string realValue = value;
+        if (string.IsNullOrWhiteSpace(realValue))
+        {
+            realValue = inputField.text;
+        }
+        if (!isProcessing && !string.IsNullOrWhiteSpace(realValue) && realValue.Length<1024)
+        {
+            GetComponent<TextUIController>().SetText("Procesando");
+            _chatManager.SendMessagePlayer(realValue);
+            inputField.text = "";
+            GetComponent<ScrollController>().ResetScroll();
+            ModelFetch(realValue);
+        }
     }
     
 }

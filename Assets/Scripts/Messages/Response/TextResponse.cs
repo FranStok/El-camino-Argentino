@@ -2,6 +2,8 @@ namespace Messages.Response
 {
     public class TextResponse
     {
-        public string response;
+        public string Response;
+        // Valor por defecto: true
+        public bool Success = true; 
     }
 }
